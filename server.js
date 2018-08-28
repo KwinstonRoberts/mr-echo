@@ -1,9 +1,9 @@
 const express = require('express');
 
-app.get('/command/echo', (req, res) => {
+app.post('/command/echo', (req, res) => {
     res.send(200);
     res.send({
-        "response_type": "ephemeral",
+        "response_type": "in_channel",
         "text": "Hello World."
       });
 });
