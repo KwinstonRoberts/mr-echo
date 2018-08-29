@@ -3,7 +3,6 @@ const app = express();
 const https = require('https');
 
 app.post('/command/echo', async(req, res) => {
-    console.log(req);
     try{
         const slackReqObj = req.body;
         console.log(slackReqObj);
