@@ -6,7 +6,7 @@ app.post('/command/echo', async(req, res) => {
         const slackReqObj = req.body;
         const response = {
           response_type: 'ephemeral',
-          text: 'Hello World:parrot-dance:',
+          text: 'Hello World:parrot:',
         }
         return res.status(200).json(response);
     } catch (err) {
