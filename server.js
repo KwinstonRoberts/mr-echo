@@ -31,7 +31,7 @@ app.post('/command/echo', async(req, res) => {
                 console.log('ERROR: ' + e.message);
               });
 
-        }
+        
         const response = {
           response_type: 'ephemeral',
           text: 'Hello World:parrot:',
