@@ -1,5 +1,5 @@
-const app = require('express');
-const router = new app.Router();
+const express = require('express');
+const app = express();
 app.post('/command/echo', async(req, res) => {
     console.log(req)
     try{
