@@ -3,7 +3,6 @@ const app = express();
 const https = require('https');
 
 app.post('/command/echo', async(req, res) => {
-    res.send(200);
     console.log(req)
     try{
         const slackReqObj = req.body;
@@ -46,8 +45,8 @@ app.post('/command/echo', async(req, res) => {
       }
     });
 
-    app.post('/command/echo', async(req, res) => {
-        console.log(req)
+    app.post('/command/thread', async(req, res) => {
+        console.log(req);
         try{
             const slackReqObj = req.body;
             console.log
@@ -84,7 +83,7 @@ app.post('/command/echo', async(req, res) => {
             }
             return res.json(response);
         } catch (err) {
-            log.error(err);
+            console.error(err);
             return res.status(500).send('Something blew up. We\'re looking into it.');
           }
         });
