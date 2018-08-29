@@ -14,4 +14,4 @@ router.post('/command/echo', async(req, res) => {
         return res.status(500).send('Something blew up. We\'re looking into it.');
       }
     });
-server.listen(port);
+server.listen(process.env.PORT || 3000);
