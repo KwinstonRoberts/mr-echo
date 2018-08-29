@@ -1,6 +1,6 @@
 const app = require('express');
 const router = new app.Router();
-router.post('/command/echo', async(req, res) => {
+app.post('/command/echo', async(req, res) => {
     console.log(req)
     try{
         const slackReqObj = req.body;
@@ -14,4 +14,4 @@ router.post('/command/echo', async(req, res) => {
         return res.status(500).send('Something blew up. We\'re looking into it.');
       }
     });
-server.listen(process.env.PORT || 3000);
+app.listen(process.env.PORT || 3000);
