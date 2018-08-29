@@ -6,7 +6,6 @@ app.post('/command/echo', async(req, res) => {
     try{
         const slackReqObj = req.body;
         console.log(slackReqObj);
-        if(slackReqObj.item === "burndown"){
 
             var options = {
                 host: 'https://www.pivotaltracker.com',
