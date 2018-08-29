@@ -9,7 +9,7 @@ app.post('/command/echo', async(req, res) => {
 
             var options = {
                 host: 'https://www.pivotaltracker.com',
-                path: '/services/v5'
+                path: '/services/v5/projects/2182748/iterations/4/analytics'
               };
             var bodyChunks = [];
             var burndown = https.get(options, function(res) {
@@ -34,7 +34,7 @@ app.post('/command/echo', async(req, res) => {
         
         const response = {
           response_type: 'ephemeral',
-          text: 'Hello World:parrot:',
+          text: 'Hello World:parrot:\n' + burndown.res,
         }
         return res.json(response);
     } catch (err) {
