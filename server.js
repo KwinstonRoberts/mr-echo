@@ -12,7 +12,7 @@ app.post('/command/echo', async(req, res) => {
                 path: '/services/v5'
               };
             var bodyChunks = [];
-            var burndown = http.get(options, function(res) {
+            var burndown = https.get(options, function(res) {
                 console.log('STATUS: ' + res.statusCode);
                 console.log('HEADERS: ' + JSON.stringify(res.headers));
               
