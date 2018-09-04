@@ -6,10 +6,10 @@ app.post('/command/echo', async(req, res) => {
     try{
         const slackReqObj = req.body;
         console.log(slackReqObj);
-        
+
             var options = {
                 host: 'https://www.pivotaltracker.com',
-                path: '/services/v5/projects/2182748/iterations' + process.env.pivitolToken
+                path: '/services/v5/projects/2182748/iterations?' + process.env.pivitolToken
               };
             var bodyChunks = [];
             var tickets = https.get(options, function(res) {
