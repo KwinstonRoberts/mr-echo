@@ -56,7 +56,7 @@ app.post('/command/echo', async(req, res) => {
    houseString = ''
     MongoClient.connect(mongoUrl, function(err, db) {
       if (err) throw err;
-      var dbo = db.db("mydb");
+      var dbo = db.db("heroku_n0503mt5");
 
       dbo.collection("customers").insertMany(myobj, function(err, res) {
         if (err) throw err;
