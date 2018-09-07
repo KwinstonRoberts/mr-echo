@@ -57,10 +57,6 @@ app.post('/command/echo', async(req, res) => {
     MongoClient.connect(mongoUrl, function(err, db) {
       if (err) throw err;
       var dbo = db.db("heroku_n0503mt5");
-
-      dbo.collection("customers").insertMany(myobj, function(err, res) {
-        if (err) throw err;
-        console.log("Number of documents inserted: " + res.insertedCount);
       dbo.collection("houses").find(query).toArray(function(err, result) {
         result.forEach((house)=>{
           houseString += house.name + ': ' + house.points + ' points\n'
