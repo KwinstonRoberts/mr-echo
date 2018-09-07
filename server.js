@@ -46,7 +46,7 @@ app.post('/command/echo', async(req, res) => {
 
     app.post('/command/house', (req, res) => {
       try{
-        console.log(req.query);
+        console.log(req.body.text);
         var housePromise = new Promise(function(resolve,reject){
           MongoClient.connect(mongoUrl, function(err, db) {
             var houseString = ''; 
@@ -66,7 +66,7 @@ app.post('/command/echo', async(req, res) => {
         });
         housePromise.then((result)=>{
           response = {
-            response_type: req.query.text.includes('-p')? 'in_channel':'ephemeral',
+            response_type: req.body.text.includes('-p')? 'in_channel':'ephemeral',
             text: ':parrot:Houses Tournament:\n' + result
           }
           return res.json(response);
