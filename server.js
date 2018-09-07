@@ -1,8 +1,13 @@
 const express = require('express');
 const app = express();
+const bodyParser = require('body-parser'); 
 const https = require('https');
 var MongoClient = require('mongodb').MongoClient;
 var mongoUrl = "mongodb://heroku_n0503mt5:hnl3j1m3olr852mmc4br24ceti@ds137812.mlab.com:37812/heroku_n0503mt5";
+
+
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
 
 app.post('/command/echo', async(req, res) => {
     try{
@@ -41,6 +46,7 @@ app.post('/command/echo', async(req, res) => {
 
     app.post('/command/house', (req, res) => {
       try{
+        console.log(req.query);
         var housePromise = new Promise(function(resolve,reject){
           MongoClient.connect(mongoUrl, function(err, db) {
             var houseString = ''; 
@@ -60,7 +66,7 @@ app.post('/command/echo', async(req, res) => {
         });
         housePromise.then((result)=>{
           response = {
-            response_type: req.body.text === '-p'? 'in_channel':'ephemeral',
+            response_type: req.query.text.includes('-p')? 'in_channel':'ephemeral',
             text: ':parrot:Houses Tournament:\n' + result
           }
           return res.json(response);
