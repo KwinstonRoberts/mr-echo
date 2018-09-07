@@ -57,9 +57,9 @@ app.post('/command/echo', async(req, res) => {
     MongoClient.connect(mongoUrl, function(err, db) {
       if (err) throw err;
       var dbo = db.db("heroku_n0503mt5");
-      dbo.collection("houses").toArray(function(err, result) {
+      dbo.collection("houses").find({}).toArray(function(err, result) {
         result.forEach((house)=>{
-          houseString += house.name + ': ' + house.points + ' points\n'
+          houseString += house.name + ': ' + house.points || '(To be determined)' + ' points\n'
         });
       });
   });
