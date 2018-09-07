@@ -41,28 +41,30 @@ app.post('/command/echo', async(req, res) => {
 
     app.post('/command/house', (req, res) => {
       try{
-       return new Promise(function(resolve,reject){
-
+        var housePromise = new Promise(function(resolve,reject){
           MongoClient.connect(mongoUrl, function(err, db) {
-            var response = null;
-            var houseString = '';
+         
             if (err) throw err;
             var dbo = db.db("heroku_n0503mt5");
             dbo.collection("houses").find({}).toArray(function(err, result) {
               result.forEach((house)=>{
                 houseString += house.name + ': ' + house.points + ' points\n'
               });
-              response = {
-                response_type: 'ephemeral',
-                text: ':parrot:Houses Tournament:\n' + houseString
-              }
+             
               if (err) throw err;
               console.log(result,houseString);
               db.close();
+              resolve(houseString);
             });
           });
         });
-         return res.status(200).json(response);
+        housePromise.then((result)=>{
+          response = {
+            response_type: 'ephemeral',
+            text: ':parrot:Houses Tournament:\n' + result
+          }
+          return res.json(response);
+        });
       } catch (err) {
         console.error(err);
         return res.status(500).send('Something blew up. We\'re looking into it.');
