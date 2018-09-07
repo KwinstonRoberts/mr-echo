@@ -54,7 +54,7 @@ app.post('/command/echo', async(req, res) => {
     });
   function genHouses(){
    houseString = ''
-    MongoClient.connect(url, function(err, db) {
+    MongoClient.connect(mongoUrl, function(err, db) {
       if (err) throw err;
     
       dbo.collection("customers").insertMany(myobj, function(err, res) {
