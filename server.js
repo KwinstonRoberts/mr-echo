@@ -9,7 +9,7 @@ app.post('/command/echo', async(req, res) => {
         var url = 'https://www.pivotaltracker.com/services/v5/projects/2182748/iterations?token=' + process.env.pivitolToken;
         var bodyChunks = [];
         var pivitRes = [];
-        var tickets = https.get(url, function(res) {
+        https.get(url, function(res) {
             console.log('STATUS: ' + res.statusCode);
             console.log('HEADERS: ' + JSON.stringify(res.headers));
           
@@ -28,7 +28,7 @@ app.post('/command/echo', async(req, res) => {
         console.log(pivotRes);
         const response = {
           response_type: 'ephemeral',
-          text: 'Hello World:parrot:\n there are ' + pivotRes[pivotRes.length].stories.length + ' stories in pivitol tracker'
+          text: 'Hello World:parrot:\n there are ' + pivotRes[pivotRes.length-1].stories.length + ' stories in pivitol tracker'
         }
         return res.status(200).json(response);
     } catch (err) {
