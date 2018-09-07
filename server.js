@@ -43,7 +43,7 @@ app.post('/command/echo', async(req, res) => {
       try{
         console.log(req);
         const response = {
-          response_type: 'in_channel',
+          response_type: 'ephemeral',
           text: ':parrot:Houses:\n' + genHouses()
         }
         return res.status(200).json(response);
@@ -56,11 +56,12 @@ app.post('/command/echo', async(req, res) => {
    houseString = ''
     MongoClient.connect(mongoUrl, function(err, db) {
       if (err) throw err;
-    
-      db.collection("customers").insertMany(myobj, function(err, res) {
+      var dbo = db.db("mydb");
+
+      dbo.collection("customers").insertMany(myobj, function(err, res) {
         if (err) throw err;
         console.log("Number of documents inserted: " + res.insertedCount);
-      db.collection("houses").find(query).toArray(function(err, result) {
+      dbo.collection("houses").find(query).toArray(function(err, result) {
         result.forEach((house)=>{
           houseString += house.name + ': ' + house.points + ' points\n'
         });
