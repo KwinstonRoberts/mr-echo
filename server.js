@@ -44,7 +44,7 @@ app.post('/command/echo', async(req, res) => {
         console.log(req);
         const response = {
           response_type: 'ephemeral',
-          text: ':parrot:Houses:\n' + genHouses()
+          text: ':parrot:Houses Tournament:\n' + genHouses()
         }
         return res.status(200).json(response);
       } catch (err) {
@@ -57,7 +57,7 @@ app.post('/command/echo', async(req, res) => {
     MongoClient.connect(mongoUrl, function(err, db) {
       if (err) throw err;
       var dbo = db.db("heroku_n0503mt5");
-      dbo.collection("houses").find(query).toArray(function(err, result) {
+      dbo.collection("houses").toArray(function(err, result) {
         result.forEach((house)=>{
           houseString += house.name + ': ' + house.points + ' points\n'
         });
