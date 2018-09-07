@@ -41,6 +41,7 @@ app.post('/command/echo', async(req, res) => {
 
     app.post('/command/house', (req, res) => {
       try{
+        var response = {};
         var houseString = '';
           MongoClient.connect(mongoUrl, function(err, db) {
             if (err) throw err;
@@ -49,7 +50,7 @@ app.post('/command/echo', async(req, res) => {
               result.forEach((house)=>{
                 houseString += house.name + ': ' + house.points + ' points\n'
               });
-              const response = {
+              response = {
                 response_type: 'ephemeral',
                 text: ':parrot:Houses Tournament:\n' + houseString
               }
@@ -59,7 +60,7 @@ app.post('/command/echo', async(req, res) => {
             });
         });
       
-        return res.status(200).json(response);
+        return res.status(200).json(res);
       } catch (err) {
         console.error(err);
         return res.status(500).send('Something blew up. We\'re looking into it.');
