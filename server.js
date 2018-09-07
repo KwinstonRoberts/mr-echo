@@ -59,7 +59,7 @@ app.post('/command/echo', async(req, res) => {
       var dbo = db.db("heroku_n0503mt5");
       dbo.collection("houses").find({}).toArray(function(err, result) {
         result.forEach((house)=>{
-          houseString += house.name + ': ' + house.points || '(To be determined)' + ' points\n'
+          houseString += house.name + ': ' + house.points + ' points\n'
         });
       });
   });
