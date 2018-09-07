@@ -25,7 +25,7 @@ app.post('/command/echo', async(req, res) => {
             });
         });
           
-    
+        console.log(tickets);
         const response = {
           response_type: 'ephemeral',
           text: 'Hello World:parrot:\n there are ' + tickets + ' stories in pivitol tracker'
