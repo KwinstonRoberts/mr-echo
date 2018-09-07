@@ -41,9 +41,11 @@ app.post('/command/echo', async(req, res) => {
 
     app.post('/command/house', (req, res) => {
       try{
-        var response = null;
-        var houseString = '';
+       return new Promise(function(resolve,reject){
+
           MongoClient.connect(mongoUrl, function(err, db) {
+            var response = null;
+            var houseString = '';
             if (err) throw err;
             var dbo = db.db("heroku_n0503mt5");
             dbo.collection("houses").find({}).toArray(function(err, result) {
@@ -58,8 +60,9 @@ app.post('/command/echo', async(req, res) => {
               console.log(result,houseString);
               db.close();
             });
+          });
         });
-        res.end.json(response);
+         return res.status(200).json(response);
       } catch (err) {
         console.error(err);
         return res.status(500).send('Something blew up. We\'re looking into it.');
