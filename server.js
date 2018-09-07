@@ -9,7 +9,7 @@ app.post('/command/echo', async(req, res) => {
 
             var options = {
                 host: 'https://www.pivotaltracker.com',
-                path: '/services/v5/projects/2182748/iterations?' + process.env.pivitolToken
+                path: '/services/v5/projects/2182748/iterations?token=' + process.env.pivitolToken
               };
             var bodyChunks = [];
             var tickets = https.get(options, function(res) {
