@@ -39,9 +39,9 @@ app.post('/command/echo', async(req, res) => {
       }
     });
 
-    app.post('/command/house', async(req, res) => {
+    app.post('/command/house', (req, res) => {
       try{
-        var houseString = ''
+        var houseString = '';
           MongoClient.connect(mongoUrl, function(err, db) {
             if (err) throw err;
             var dbo = db.db("heroku_n0503mt5");
@@ -65,7 +65,4 @@ app.post('/command/echo', async(req, res) => {
         return res.status(500).send('Something blew up. We\'re looking into it.');
       }
     });
-
-  return houseString;
-
 app.listen(process.env.PORT || 3000);
