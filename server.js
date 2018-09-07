@@ -18,7 +18,7 @@ app.post('/command/echo', async(req, res) => {
               bodyChunks.push(chunk);
             }).on('end', function() {
               var body = Buffer.concat(bodyChunks);
-              console.log('BODY: ' + body);
+              //console.log('BODY: ' + body);
               // ...and/or process the entire body here.
             }).on('error', function(e) {
                 console.log('ERROR: ' + e.message);
@@ -28,7 +28,7 @@ app.post('/command/echo', async(req, res) => {
     
         const response = {
           response_type: 'ephemeral',
-          text: 'Hello World:parrot:\n' + bodyChunks,
+          text: 'Hello World:parrot:\n There are currently ' + bodyChunks[bodyChunks.length].stories.length + 'stories in pivitol tracker,
         }
         return res.status(200).json(response);
     } catch (err) {
