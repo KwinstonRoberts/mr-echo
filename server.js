@@ -3,6 +3,7 @@ const app = express();
 const https = require('https');
 
 app.post('/command/echo', async(req, res) => {
+   res.send(200);
     try{
         const slackReqObj = req.body;
         console.log(slackReqObj);
@@ -32,7 +33,7 @@ app.post('/command/echo', async(req, res) => {
         
         const response = {
           response_type: 'ephemeral',
-          text: 'Hello World:parrot:\n' + slackReqObj + '\n' + bodyChunks,
+          text: 'Hello World:parrot:\n' + bodyChunks,
         }
         return res.json(response);
     } catch (err) {
