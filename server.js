@@ -32,7 +32,7 @@ app.post('/command/echo', async(req, res) => {
         
         const response = {
           response_type: 'ephemeral',
-          text: 'Hello World:parrot:\n' + slackReqObj + '\n' + res,
+          text: 'Hello World:parrot:\n' + slackReqObj + '\n' + bodyChunks,
         }
         return res.json(response);
     } catch (err) {
