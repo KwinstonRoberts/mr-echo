@@ -62,7 +62,6 @@ app.post('/command/echo', async(req, res) => {
           houseString += house.name + ': ' + house.points + ' points\n'
         });
       });
-    });
   });
 } 
 app.listen(process.env.PORT || 3000);
