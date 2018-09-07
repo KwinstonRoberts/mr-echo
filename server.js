@@ -18,17 +18,17 @@ app.post('/command/echo', async(req, res) => {
               bodyChunks.push(chunk);
             }).on('end', function() {
               var body = Buffer.concat(bodyChunks);
-              console.log('BODY: ' + body);
+              //console.log('BODY: ' + body);
               return res.json;
             }).on('error', function(e) {
                 console.log('ERROR: ' + e.message);
             });
         });
           
-        console.log(tickets);
+        console.log(tickets.body);
         const response = {
           response_type: 'ephemeral',
-          text: 'Hello World:parrot:\n there are ' + tickets + ' stories in pivitol tracker'
+          text: 'Hello World:parrot:\n there are ' + tickets.body + ' stories in pivitol tracker'
         }
         return res.status(200).json(response);
     } catch (err) {
