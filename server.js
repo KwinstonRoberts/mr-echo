@@ -28,7 +28,7 @@ app.post('/command/echo', async(req, res) => {
     
         const response = {
           response_type: 'ephemeral',
-          text: 'Hello World:parrot:\n There are currently ' + bodyChunks[bodyChunks.length].stories.length + 'stories in pivitol tracker,
+          text: 'Hello World:parrot:\n There are currently ' + body[bodyChunks.length].stories.length + 'stories in pivitol tracker,
         }
         return res.status(200).json(response);
     } catch (err) {
