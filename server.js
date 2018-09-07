@@ -1,6 +1,8 @@
 const express = require('express');
 const app = express();
 const https = require('https');
+var MongoClient = require('mongodb').MongoClient;
+var mongoUrl = "mongodb://heroku_n0503mt5:hnl3j1m3olr852mmc4br24ceti@ds137812.mlab.com:37812/heroku_n0503mt5";
 
 app.post('/command/echo', async(req, res) => {
     try{
@@ -28,7 +30,7 @@ app.post('/command/echo', async(req, res) => {
         console.log(pivotRes);
         const response = {
           response_type: 'ephemeral',
-          text: 'Hello World:parrot:\n there are ' + pivotRes[pivotRes.length-1] + ' stories in pivitol tracker'
+          text: 'There are ' + pivotRes[pivotRes.length-1] + ' stories in pivitol tracker'
         }
         return res.status(200).json(response);
     } catch (err) {
@@ -37,13 +39,33 @@ app.post('/command/echo', async(req, res) => {
       }
     });
 
-    app.post('/command/thread', async(req, res) => {
+    app.post('/command/house', async(req, res) => {
         console.log(req);
-        try{
-           
-        } catch (err) {
-            console.error(err);
-            return res.status(500).send('Something blew up. We\'re looking into it.');
-          }
+        const response = {
+          response_type: 'ephemeral',
+          text: 'Houses:\n' + genHouses()
+        }
+    });
+ function genHouses(){
+   houseString = ''
+    MongoClient.connect(url, function(err, db) {
+      if (err) throw err;
+      var dbo = db.db("heroku_n0503mt5");
+      var myobj = [
+        { name: 'District Dynamite', players:[]},
+        { name: 'Stasis Haven', players:[]},
+        { name: 'Sierra Sierra Charlie', players:[]},
+        { name: 'House of Flying Daggers', players:[]}
+      ];
+      dbo.collection("customers").insertMany(myobj, function(err, res) {
+        if (err) throw err;
+        console.log("Number of documents inserted: " + res.insertedCount);
+      dbo.collection("houses").find(query).toArray(function(err, result) {
+        result.forEach((house)=>{
+          houseString += house.
         });
+      });
+    });
+   
+ } 
 app.listen(process.env.PORT || 3000);
