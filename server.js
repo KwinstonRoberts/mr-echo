@@ -19,6 +19,7 @@ app.post('/command/echo', async(req, res) => {
               bodyChunks.push(chunk);
             }).on('end', function() {
               body = Buffer.concat(bodyChunks);
+              console.log('BODY: ', body[2]);
               return body;
               // ...and/or process the entire body here.
             }).on('error', function(e) {
@@ -29,7 +30,7 @@ app.post('/command/echo', async(req, res) => {
     
         const response = {
           response_type: 'ephemeral',
-          text: 'Hello World:parrot:\n There are currently ' + tickets[tickets.length] + ' stories in pivitol tracker',
+          text: 'Hello World:parrot:\n There are currently ' + tickets + ' stories in pivitol tracker',
         }
         return res.status(200).json(response);
     } catch (err) {
