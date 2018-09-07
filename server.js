@@ -43,12 +43,12 @@ app.post('/command/echo', async(req, res) => {
       try{
         var housePromise = new Promise(function(resolve,reject){
           MongoClient.connect(mongoUrl, function(err, db) {
-         
+            var houseString = ''; 
             if (err) throw err;
             var dbo = db.db("heroku_n0503mt5");
             dbo.collection("houses").find({}).toArray(function(err, result) {
               result.forEach((house)=>{
-                houseString += house.name + ': ' + house.points + ' points\n'
+               houseString += house.name + ': ' + house.points + ' points\n'
               });
              
               if (err) throw err;
