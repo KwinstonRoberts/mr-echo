@@ -40,11 +40,17 @@ app.post('/command/echo', async(req, res) => {
     });
 
     app.post('/command/house', async(req, res) => {
+      try{
         console.log(req);
         const response = {
-          response_type: 'ephemeral',
-          text: 'Houses:\n' + genHouses()
+          response_type: 'in_channel',
+          text: ':parrot:Houses:\n' + genHouses()
         }
+        return res.status(200).json(response);
+      } catch (err) {
+        console.error(err);
+        return res.status(500).send('Something blew up. We\'re looking into it.');
+      }
     });
   function genHouses(){
    houseString = ''
