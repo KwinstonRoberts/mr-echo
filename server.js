@@ -53,7 +53,7 @@ app.post('/command/echo', async(req, res) => {
       }
     });
   function genHouses(){
-   houseString = ''
+   var houseString = ''
     MongoClient.connect(mongoUrl, function(err, db) {
       if (err) throw err;
       var dbo = db.db("heroku_n0503mt5");
@@ -61,7 +61,11 @@ app.post('/command/echo', async(req, res) => {
         result.forEach((house)=>{
           houseString += house.name + ': ' + house.points + ' points\n'
         });
+        if (err) throw err;
+        console.log(result);
+        db.close();
       });
   });
+  return houseString
 } 
 app.listen(process.env.PORT || 3000);
