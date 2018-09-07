@@ -41,7 +41,7 @@ app.post('/command/echo', async(req, res) => {
 
     app.post('/command/house', (req, res) => {
       try{
-        var response = {};
+        var response = null;
         var houseString = '';
           MongoClient.connect(mongoUrl, function(err, db) {
             if (err) throw err;
@@ -59,8 +59,7 @@ app.post('/command/echo', async(req, res) => {
               db.close();
             });
         });
-      
-        return res.status(200).json(response);
+        res.end.json(response);
       } catch (err) {
         console.error(err);
         return res.status(500).send('Something blew up. We\'re looking into it.');
