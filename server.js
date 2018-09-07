@@ -60,7 +60,7 @@ app.post('/command/echo', async(req, res) => {
         });
         housePromise.then((result)=>{
           response = {
-            response_type: 'ephemeral',
+            response_type: req.body.text === '-p'? 'in_channel':'ephemeral',
             text: ':parrot:Houses Tournament:\n' + result
           }
           return res.json(response);
