@@ -64,7 +64,7 @@ app.post('/command/echo', async(req, res) => {
               text_args = req.body.text.split('-');
               console.log(text_args[0]);
               let changePoints = parseInt(text_args[1].split(' ')[1]);
-              console.log(changePoints);
+              console.log(changePoints,text_args[0]);
               dbo.collection("houses").updateOne({"name":text_args[0]},{$inc:{'points':changePoints}});
               resolve(text_args);
             }else{
