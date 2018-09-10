@@ -12,7 +12,7 @@ const stickers = {
   "Stasis Haven": ':cloud:',
   "District Dynamite": ':bomb:'
 };
-
+var text_args;
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
@@ -53,14 +53,14 @@ app.post('/command/echo', async(req, res) => {
 
     app.post('/command/house', (req, res) => {
       try{
-        var text_args;
+       
         var housePromise = new Promise(function(resolve,reject){
           MongoClient.connect(mongoUrl, function(err, db) {
             var houseString = ''; 
             if (err) throw err;
             var dbo = db.db("heroku_n0503mt5");
-            if(req.query.text){
-              text_args = req.query.text.split('-');
+            if(req.body.text){
+              text_args = req.body.text.split('-');
               console.log(text_args[0]);
               let changePoints = parseInt(text_args[1].split(' ')[1]);
               console.log(changePoints);
@@ -83,16 +83,15 @@ app.post('/command/echo', async(req, res) => {
         
         });
         housePromise.then((result)=>{
-          if(text_args[0]){
+          if(text_args.constructor === Array
+          ){
             response = {
-              response_url:req.query.response_url,
               response_type: result[1] === 'p'? 'in_channel':'ephemeral',
               text: 'points have been modified'
             }
           }else{
           response = {
-            response_url:req.query.response_url,
-            response_type: req.query.text && text_args[1] === 'p'? 'in_channel':'ephemeral',
+            response_type: req.body.text && text_args[1] === 'p'? 'in_channel':'ephemeral',
             text: ':parrot:House Tournament:parrot:\n-------------------------------\n' + result
           }
         }
