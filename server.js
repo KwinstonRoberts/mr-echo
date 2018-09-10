@@ -71,10 +71,7 @@ app.post('/command/echo', async(req, res) => {
             response_type: req.body.text.includes('-p')? 'in_channel':'ephemeral',
             text: ':parrot:House Tournament:parrot:\n-------------------------------\n' + result
           }
-          https.post(req.body.response_url, function() {
-            console.log('STATUS: ' + res.statusCode);
-            console.log('HEADERS: ' + JSON.stringify(res.headers));
-          });
+          return res.json(response);
         });
       } catch (err) {
         console.error(err);
