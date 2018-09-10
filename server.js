@@ -46,7 +46,7 @@ app.post('/command/echo', async(req, res) => {
 
     app.post('/command/house', (req, res) => {
       try{
-        res.send({response_type:'ephemeral',text:'recieved'});
+        res.sendStatus(200);
         console.log(req.body.text);
         var housePromise = new Promise(function(resolve,reject){
           MongoClient.connect(mongoUrl, function(err, db) {
@@ -71,7 +71,10 @@ app.post('/command/echo', async(req, res) => {
             response_type: req.body.text.includes('-p')? 'in_channel':'ephemeral',
             text: ':parrot:House Tournament:parrot:\n-------------------------------\n' + result
           }
-          return res.json(response);
+          https.post(req.body.response_url, function() {
+            console.log('STATUS: ' + res.statusCode);
+            console.log('HEADERS: ' + JSON.stringify(res.headers));
+          });
         });
       } catch (err) {
         console.error(err);
