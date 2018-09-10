@@ -6,6 +6,13 @@ var MongoClient = require('mongodb').MongoClient;
 var mongoUrl = "mongodb://heroku_n0503mt5:hnl3j1m3olr852mmc4br24ceti@ds137812.mlab.com:37812/heroku_n0503mt5";
 
 
+const stickers = {
+  "House of Flying Daggers": ':dagger_knife:',
+  "Sierra Sierra Charlie": ':smoking:',
+  "Stasis Haven": ':cloud:',
+  "District Dynamite": ':bomb:'
+};
+
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
@@ -46,15 +53,24 @@ app.post('/command/echo', async(req, res) => {
 
     app.post('/command/house', (req, res) => {
       try{
-        console.log(req.body.text);
+        var text_args;
         var housePromise = new Promise(function(resolve,reject){
           MongoClient.connect(mongoUrl, function(err, db) {
             var houseString = ''; 
             if (err) throw err;
             var dbo = db.db("heroku_n0503mt5");
+            if(req.query.text){
+              text_args = req.query.text.split('-');
+              console.log(text_args[0]);
+              let changePoints = parseInt(text_args[1].split(' ')[1]);
+              console.log(changePoints);
+              dbo.collection("houses").updateOne({"name":text_args[0]},{$inc:{'points':changePoints}});
+              resolve(text_args);
+            }else{
             dbo.collection("houses").find({}).toArray(function(err, result) {
               result.forEach((house)=>{
-               houseString += house.name + ': ' + house.points + ' points\n'
+                 houseString += stickers[house.name] + house.name + ': ' + house.points + ' points\n'
+                
               });
              
               if (err) throw err;
@@ -62,14 +78,24 @@ app.post('/command/echo', async(req, res) => {
               db.close();
               resolve(houseString);
             });
+          }
           });
+        
         });
         housePromise.then((result)=>{
+          if(text_args[0]){
+            response = {
+              response_url:req.query.response_url,
+              response_type: result[1] === 'p'? 'in_channel':'ephemeral',
+              text: 'points have been modified'
+            }
+          }else{
           response = {
-            response_url:req.body.response_url,
-            response_type: req.body.text.includes('-p')? 'in_channel':'ephemeral',
+            response_url:req.query.response_url,
+            response_type: req.query.text && text_args[1] === 'p'? 'in_channel':'ephemeral',
             text: ':parrot:House Tournament:parrot:\n-------------------------------\n' + result
           }
+        }
           return res.json(response);
         });
       } catch (err) {
