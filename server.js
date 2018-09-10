@@ -53,13 +53,14 @@ app.post('/command/echo', async(req, res) => {
 
     app.post('/command/house', (req, res) => {
       try{
-       
+       text_args=null;
         var housePromise = new Promise(function(resolve,reject){
           MongoClient.connect(mongoUrl, function(err, db) {
             var houseString = ''; 
             if (err) throw err;
             var dbo = db.db("heroku_n0503mt5");
             if(req.body.text){
+            
               text_args = req.body.text.split('-');
               console.log(text_args[0]);
               let changePoints = parseInt(text_args[1].split(' ')[1]);
