@@ -92,13 +92,13 @@ app.post('/command/house', (req, res) => {
     housePromise.then((result) => {
       if (text_args && text_args.constructor === Array && (text_args[1] === "a" || text_args === "s")) {
         response = {
-          response_type: result[1] === 'p' ? 'in_channel' : 'ephemeral',
+          response_type: result === 'p' ? 'in_channel' : 'ephemeral',
           text: 'points have been modified'
         }
       } else {
         response = {
           response_type: req.body.text && text_args[1] === 'p' ? 'in_channel' : 'ephemeral',
-          text: ':parrot:House Tournament:parrot:\n-------------------------------\n' + result
+          text: ':parrot:House Tournament:parrot:\n-------------------------------\n' + result[0]
         }
       }
       return res.json(response);
