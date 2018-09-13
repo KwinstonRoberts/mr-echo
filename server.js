@@ -87,7 +87,7 @@ app.post('/command/echo', async(req, res) => {
         
         });
         housePromise.then((result)=>{
-          if(text_args && text_args.constructor === Array){
+          if(text_args && text_args.constructor === Array && (text_args[1]==="a"||text_args === "s")){
             response = {
               response_type: result[1] === 'p'? 'in_channel':'ephemeral',
               text: 'points have been modified'
