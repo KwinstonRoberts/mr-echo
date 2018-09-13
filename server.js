@@ -61,14 +61,16 @@ app.post('/command/house', (req, res) => {
         var dbo = db.db("heroku_n0503mt5");
         text_args = req.body.text.split('-');
         console.log(text_args[0]);
-        let changePoints = parseInt(text_args[1].split(' ')[1]);
-        console.log(changePoints, text_args[0]);
-        if (changePoints[0] == '-a') {
-          dbo.collection("houses").updateOne({ "name": text_args[0].trim() }, { $inc: { 'points': changePoints } });
-          resolve(text_args);
-        } else if (changePoints[0] === '-s') {
-          dbo.collection("houses").updateOne({ "name": text_args[0].trim() }, { $inc: { 'points': changePoints - (changepoints * 2) } });
-          resolve(text_args);
+        if (text_args[1]) {
+          let changePoints = parseInt(text_args[1].split(' ')[1]);
+          console.log(changePoints, text_args[0]);
+          if (changePoints[0] == '-a') {
+            dbo.collection("houses").updateOne({ "name": text_args[0].trim() }, { $inc: { 'points': changePoints } });
+            resolve(text_args);
+          } else if (changePoints[0] === '-s') {
+            dbo.collection("houses").updateOne({ "name": text_args[0].trim() }, { $inc: { 'points': changePoints - (changepoints * 2) } });
+            resolve(text_args);
+          }
         } else {
 
 
