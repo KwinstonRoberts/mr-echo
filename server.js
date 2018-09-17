@@ -61,7 +61,7 @@ app.post('/command/house', (req, res) => {
         var dbo = db.db("heroku_n0503mt5");
         text_args = req.body.text.split('-');
         console.log(text_args[0]);
-        if (text_args[1]) {
+        if (text_args[1] && (text_args[1] === 's' || text_args[1] === 'a')) {
           let changePoints = parseInt(text_args[1].split(' ')[1]);
           console.log(changePoints, text_args[0]);
           if (changePoints[0] == '-a') {
