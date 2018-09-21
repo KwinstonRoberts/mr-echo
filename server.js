@@ -59,7 +59,7 @@ app.post('/command/house', (req, res) => {
         var houseString = '';
         if (err) throw err;
         var dbo = db.db("heroku_n0503mt5");
-        text_args = req.query.text.split('-');
+        text_args = req.body.text.split('-');
         console.log(text_args[0]);
         if (text_args[1] && (text_args[1] === 's' || text_args[1] === 'a')) {
           let changePoints = parseInt(text_args[1].split(' ')[1]);
@@ -97,7 +97,7 @@ app.post('/command/house', (req, res) => {
         }
       } else {
         response = {
-          response_type: req.query.text && text_args[1] === 'p' ? 'in_channel' : 'ephemeral',
+          response_type: req.body.text && text_args[1] === 'p' ? 'in_channel' : 'ephemeral',
           text: ':parrot:House Tournament:parrot:\n-------------------------------\n' + result[0]
         }
       }
